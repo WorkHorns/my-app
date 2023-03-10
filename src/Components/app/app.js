@@ -17,6 +17,13 @@ import '../search-panel/search-panel.css';
 
 
 const App = () => {
+    const data = [
+        {label: 'Иди учи реакт', important: false, id:'1'},
+        {label: 'Это хорошо', important: true, id:'2'},
+        {label: 'Мне нужен перерыв...', important: true, id:'3'}
+        ];
+
+
     return (
         <div className="app">
             <AppHeader/>
@@ -24,7 +31,7 @@ const App = () => {
                     <SearchPanel/>
                     <PostStatusFilter/>
                 </div>
-            <PostList/>
+            <PostList posts={data}/>
             <PostAddForm/>
         </div>
     );
