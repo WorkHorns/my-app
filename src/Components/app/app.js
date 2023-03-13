@@ -8,12 +8,7 @@ import PostAddForm from "../post-add-form/post-add-form";
 
 //css
 import './app.css';
-import styled from 'styled-components'
 
-const AppBlock = styled.div`
-        margin: 0 auto;
-        max-width: 800px;
-`
 //Экспортируемый класс
 export default class App extends Component {
     //Конструктор
@@ -21,16 +16,47 @@ export default class App extends Component {
         super(props);
         this.state = {
             data : [
-                {label: 'Иди учи реакт', important: false, id:1},
-                {label: 'Это хорошо', important: false, id:2},
-                {label: 'Мне нужен перерыв...', important: false, id:3}
+                {label: 'Иди учи реакт', important: false, like: false, id:1},
+                {label: 'Это хорошо', important: false, like: false, id:2},
+                {label: 'Мне нужен перерыв...', important: false, like: false, id:3}
                 ]
         }
         this.deleteItem = this.deleteItem.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.onToggleImportant = this.onToggleImportant.bind(this);
+        this.onToggleLike = this.onToggleLike.bind(this)
 
         this.maxId = 4;
     }
+
+    onToggleImportant(id) {
+        this.setState(({data}) => {
+            const index = data.findIndex(elem => elem.id === id)
+
+            const old = data[index];
+            const newItem = {...old, important: !old.important};
+
+            const newArray = [...data.slice(0,index), newItem, ...data.slice(index + 1)]
+            return {
+                data: newArray
+            }
+        });
+    }
+
+    onToggleLike(id){
+        this.setState(({data}) => {
+            const index = data.findIndex(elem => elem.id === id)
+
+            const old = data[index];
+            const newItem = {...old, like: !old.like};
+
+            const newArray = [...data.slice(0,index), newItem, ...data.slice(index + 1)]
+            return {
+                data: newArray
+            }
+        });
+    }
+
     //Удаление записей
     deleteItem(id) {
         //State нельзя изменять на прямую.
@@ -65,19 +91,26 @@ export default class App extends Component {
     }
 
     render() {
+        const {data} = this.state;
+        const liked = data.filter(item => item.like).length;
+        const allPosts = data.length;
         return (
-            <AppBlock>
-                <AppHeader/>
+            <div className="app">
+                <AppHeader
+                    liked={liked}
+                    allPosts={allPosts}/>
                     <div className="search-panel d-flex">
                         <SearchPanel/>
                         <PostStatusFilter/>
                     </div>
                 <PostList 
                     posts={this.state.data}
-                    onDelete={this.deleteItem}/>
+                    onDelete={this.deleteItem}
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleLike={this.onToggleLike}/>
                 <PostAddForm
                     onAdd={this.addItem}/>
-            </AppBlock>
+            </div>
         );
     }
 };
