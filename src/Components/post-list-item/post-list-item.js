@@ -9,17 +9,17 @@ export default class PostListItem extends Component{
         const {label, onDelete, onToggleImportant, onToggleLike, important, like} = this.props;
       
         let classNames = 'app-list-item d-flex justify-content-between';
-
+        //Изменяет статус important
         if(important) {
         classNames +=' important';
         }
-
+        //Изменяет статус like
         if(like) {
         classNames +=' like';
         }
 
         return (
-            <li className={classNames}>
+            <div className={classNames}>
                 <span 
                     className="app-list-item-label"
                     onClick={onToggleLike}>
@@ -30,20 +30,21 @@ export default class PostListItem extends Component{
                         type="button" 
                         className="btn-star btn-sm" 
                         onClick={onToggleImportant}>
-                        <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
                     </button>
                     <button    
                         type="button" 
                         className="btn-trash btn-sm"
                         onClick={onDelete}>
-                        <i className="fa fa-trash-o"></i>
+                            <i className="fa fa-trash-o"></i>
                     </button>
-                    <i className="fa fa-heart"></i>
+                        <i className="fa fa-heart"></i>
                 </div>
-            </li>
+            </div>
         )
     }
 }
+
 
 
 

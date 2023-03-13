@@ -3,7 +3,7 @@ import PostListItem from "../post-list-item";
 import { ListGroup } from "reactstrap";
 
 import './post-list.css';
-
+//Переменная принимает параметры из app.js 
 const PostList = ({posts, onDelete, onToggleImportant, onToggleLike}) => {
 
     const elements = posts.map((item => {

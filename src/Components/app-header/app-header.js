@@ -18,7 +18,7 @@ const Header = styled.div`
         color: grey;
     }
 `
-
+//Заголовок принимает 2 параметра и обновляет в реальном фремени 
 const AppHeader = ({liked, allPosts}) => {
     return (
         <Header>
